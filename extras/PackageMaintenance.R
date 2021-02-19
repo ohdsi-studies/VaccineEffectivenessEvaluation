@@ -39,13 +39,13 @@ rmarkdown::render("Documents/Protocol.rmd", output_dir = "docs")
 rmarkdown::render("Documents/Protocol.rmd", output_format = "bookdown::pdf_document2")
 
 # Upload Rmd to GDocs
-gdrive_path <- "Eumaeus"
-rmdrive::upload_rmd(file = "Documents/Protocol",
-                    gfile = "Eumaeus_Protocol",
-                    path = gdrive_path)
+gdrive_path <- "Scylla_Manuscripts"
+# rmdrive::upload_rmd(file = "Documents/Protocol",
+#                     gfile = "Vaccine_comparative_effectiveness_evaluation_protocol",
+#                     path = gdrive_path)
 
 rmdrive::update_rmd(file = "Documents/Protocol",
-                    gfile = "Eumaeus_Protocol",
+                    gfile = "Vaccine_comparative_effectiveness_evaluation_protocol",
                     path = gdrive_path)
 
 # Upload PDF to GDrive (note: will overwrite current document)

@@ -18,3 +18,6 @@ src/*.so
 src/*.dll
 /Debug
 standalone/build/*
+
+Documents/Protocol.html
+Documents/Protocol.pdf

@@ -1,5 +1,5 @@
 ---
-title: "| RESEARCH PROTOCOL\n| \n| EUMAEUS: Evaluating Use of Methods for Adverse Event Under Surveillance (for vaccines)\n"
+title: "| RESEARCH PROTOCOL\n| \n| Comparative Vaccine Effectiveness Methods Evaluation\n"
 fontsize: 12pt
 geometry: margin=1in
 output:
@@ -109,9 +109,9 @@ if (knitr::is_latex_output()) {
 parties <- readr::read_delim(col_names = TRUE, delim = ";", trim_ws = TRUE, file = "
   Investigator; Institution/Affiliation
   George Hripcsak; Department of Biomedical Informatics, Columbia University, New York, NY, USA
-  Dani Prieto-Alhambra; Centre for Statistics in Medicine, NDORMS, University of Oxford, Oxford, UK
+  Dani Prieto-Alhambra *; Centre for Statistics in Medicine, NDORMS, University of Oxford, Oxford, UK
   Patrick B. Ryan; Observational Health Data Analytics, Janssen Research and Development, Titusville, NJ, USA
-  Martijn J. Schuemie *; Observational Health Data Analytics, Janssen Research and Development, Titusville, NJ, USA
+  Martijn J. Schuemie; Observational Health Data Analytics, Janssen Research and Development, Titusville, NJ, USA
   Marc A. Suchard; Department of Biostatistics, University of California, Los Angeles, Los Angeles, CA, USA
 ")
 
@@ -142,7 +142,16 @@ This study is undertaken within Observational Health Data Sciences and Informati
 
 **Study Description**: 
 
+* **Design choices**
 
+* **Population**: 
+
+* **Comparators**:
+
+* **Outcomes**:
+  - Death
+
+* **Timeframe**:
 
 # Amendments and Updates
 
@@ -183,18 +192,41 @@ if (knitr::is_latex_output()) {
 
 # Rationale and Background
 
+* There are several COVID-19 vaccines
+* What are reliable methods (study designs) to evaluate comparative effectiveness (and safety) of these products
+* Need many different data capture processes (data sources)
+* Some important references:
+  * Izurieta et al (2020) Comparative effectiveness of influenza vaccines [here](https://pubmed.ncbi.nlm.nih.gov/33211809/)
+
 # Study Objectives
 
+To inform critical decisions facing healthcare researchers and regulatory agencies in designing comparative effectiveness studies of vaccines, we will launch the TODO-NAME initiative.
+TODO-NAME benchmarks a large collection of study design choices to estimate relative outcome rates of health events between two vaccines using negative and synthetic positive controls.
+Specifically, this benchmark aims
+
+1. Implement large-scale (comparative effectiveness designs) ... deployable across the OHDSI network of data partners
+2. Execute (these designs) against ....
+3. Characterize the operating characteristics of all designs and choices to guide future studies of COVID-19 vaccine effectiveness and safety
+
+* Need something about how useful this will be because of execution across many different data sources
+
 # Research Methods
+
+General outline (?):
+
+* Describe how we will implement all of the designs (OHDSI toolstack, etc.)
+* Enumerate historical target-comparator pairs
+* Enumerate design choices
+* Enumerate negative controls (and synthetic positive controls)
 
 ## Exposure-outcome pairs
 
 ### Exposures
 
-The evaluation will center on four existing (groups of) vaccines, for specific time periods (start date to end date): 
+Design evaluation will center on XXX historical-based vaccine comparisons for specific time periods (start date to end date): 
 
 ```{r exposures-of-interest, echo=FALSE}
-eois <- readr::read_csv(system.file("settings", "ExposuresOfInterest.csv", package = "Eumaeus"), col_types = readr::cols())
+eois <- readr::read_csv(system.file("settings", "ExposuresOfInterest.csv", package = "VaccineEffectivenessEvaluation"), col_types = readr::cols())
 colnames(eois) <- SqlRender::camelCaseToTitleCase(colnames(eois))
 
 tab <- eois %>%
@@ -215,6 +247,18 @@ if (knitr::is_latex_output()) {
   tab
 }
 ```
+
+The table above needs to be updated; here are some choices TODO DANI:
+
+* Different zoster vaccines (is there much overlap in time)
+* influenza vaccines:
+  * egg-based high-dose trivalent (HD-IIV3)
+  * egg-based adjuvanted trivalent (allV3)
+  * egg-based standard dose (SD) quadrivalent (IIV4)
+  * cell-based SD quadrivalent (cIIV4)
+  * recombinant quadrivalent (RIV4)
+* Others?
+
 For some methods the period between historic start and historic end date will be used to estimate the historic incidence rate. 
 The formal cohort definitions of each exposure can be found in Appendix \@ref(exposure-cohort-definitions).
 
@@ -242,13 +286,13 @@ This increased risk is applied both for the first and second injection of multi-
 
 ## Data
 
-We will execute EUMAEUS as an OHDSI network stuy.
+We will execute TODO-NAME as an OHDSI network stuy.
 All data partners within OHDSI are encouraged to participate voluntarily and can do so conveniently, because of the community's shared Observational Medical Outcomes Partnership (OMOP) common data model (CDM) and OHDSI tool-stack.
 Many OHDSI community data partners have already committed to participate and we will recruit further data partners through OHDSI’s standard recruitment process, which includes protocol publication on OHDSI’s GitHub, an announcement in OHDSI’s research forum, presentation at the weekly OHDSI all-hands-on meeting and direct requests to data holders.
 
-Table \@ref(tab:data-sources) lists the 13 already committed data sources for EUMAEUS; these sources encompass a large variety of practice types and populations. 
+Table \@ref(tab:data-sources) lists the TODO already committed data sources for TODO-NAME; these sources encompass a large variety of practice types and populations. 
 For each data source, we report a brief description and size of the population it represents.
-All data sources will receive institutional review board approval or exemption for their participation before executing EUMAEUS.
+All data sources will receive institutional review board approval or exemption for their participation before executing TODO-NAME
 
 ```{r data-sources, echo=FALSE, warning=FALSE}
 data_sources <- readr::read_delim(col_names = TRUE, delim = ";", trim_ws = TRUE, file = "
@@ -261,7 +305,7 @@ data_sources <- readr::read_delim(col_names = TRUE, delim = ";", trim_ws = TRUE,
   Optum Electronic Health Records (OptumEHR) ; US, general ; 93M ; 2006 -- ; Clinical information, prescriptions, lab results, vital signs, body measurements, diagnoses and procedures derived from clinical notes using natural language processing. 
 ")
 tab <- kable(data_sources, booktabs = TRUE, linesep = "",
-      caption = "Committed EUMAEUS data sources and the populations they cover.") %>% 
+      caption = "Committed TODO-NAME data sources and the populations they cover.") %>% 
   kable_styling(bootstrap_options = "striped", latex_options = "striped") %>%
   pack_rows("Administrative claims", 1, 5, latex_align = "c", indent = FALSE) %>%
   pack_rows("Electronic health records (EHRs)", 6, 6, latex_align = "c", indent = FALSE)
@@ -277,17 +321,27 @@ if (knitr::is_latex_output()) {
 }
 ```
 
+* TODO DANI Which other data sources are already committed? 
+  * SIDIAP
+  * CPRD
+  * VA
+  * IQVIA
+  * CUIMC
+
 ## Methods to evaluate
 
+* TODO DANI
+  * Izurieta et al use "Poisson (# of health events) regression and inverse probability of treatment weighting of PS model" with a couple of variants:
+    * PS model: pre-specified set of covariates (looks similar to the Graham study covariates)
+    * doubly-robust 
+  * Cox vs Poisson (Izurieta et al censor at first outcome??? how is this Poisson?)
+  * Small-scale vs large-scale PS?
+  * Case-control
+  * Comparative self-controlled case series
+  * Dream up fun methods (based on time-varying Cox likelihoods)
+
+
 Vaccine safety surveillance methods can be broken down in to four components: construction of a *counterfactual* (often referred to as the 'expected count'), a *time-at-risk*, the *statistic* to estimate, and potentially a *decision rule* on the estimate to classify signals from non-signals.
-
-### Counterfactual construction
-
-- Historic rate. Traditionally, vaccine surveillance methods compute an expected count based an incidence rate estimated during some historic time period, for example in the years prior to the initiation of the surveillance study. 
-Typically a single rate is estimated for the entire population, but we will also evaluate stratification on age and sex, allowing the expected rate to be adjusted for the demographics of the vaccinated.
-- Propensity-score adjusted contemporary non-user comparator. 
-- Self-Controlled Case Series (SCCS) / Self-Controlled Risk Interval (SCRI): 
-- Case-control?
 
 ### Time-at-risk
 
@@ -298,17 +352,8 @@ Time-at-risk windows will be constructed both for the first and second dose. The
 
 - Effect-size estimate. Each method can be used to produce an effect-size estimates such as a hazard ratio, incidence rate ratio, or odds ratio. For example, when using a historic rate we can compute the observed to expected ratio, which can be interpreted as the incidence rate ratio.
 
-- Log likelihood ratio (LLR). A common practice in vaccine safety surveillance is to computer the LLR, which is the log of the ratio between the likelihood of the alternative hypothesis (that there is an effect) and the likelihood of the null hypothesis (of no effect). 
-The LLR is a convenient statistic when performing sequential testing, where the LLR can be compared to a pre-computed critical value, as is done in the PMaxSPRT method. [@kulldorf2011] 
-Although typically PMaxSPRT uses a historic rate as counterfactual, any counterfactual can be used to compute the LLR and can be used in PMaxSPRT.
-
 Effect-size estimates will be computed both with and without empirical calibration. [@Schuemie2014-bv;@Schuemie2018-hq]
 Empirical calibration will be done using leave-one-out: when calibrating the estimate for a control, the systematic error distribution will be fitted uses all controls except the one being calibrated.
-
-### Decision rule
-
-To identify 'signals' we need a decision rule, for example in the shape of a threshold value on one of the estimates statistics.
-In our experiment we will consider one decision rule, which is the critical value computed for the LLR at an alpha of 0.01.
 
 ## Metrics
 
@@ -340,6 +385,9 @@ For those vaccines requiring multiple doses (zoster, HPV), metrics will be compu
 # Strengths and Limitations
 
 ## Strengths
+
+* TODO DANI
+
 - Cohort studies allow direct estimation of incidence rates following exposure of interest, and the new-user design can capture early events following treatment exposures while avoiding confounding from previous treatment effects; new use allows for a clear exposure index date.
 - Large-scale propensity score matching and stratification create balance on a large number of baseline potential confounders and have been found in the past to balance unmeasured confounders.
 - Systematic processes including a pre-specified selection of covariates avoids investigator-specific biases in variable selection.
@@ -353,6 +401,8 @@ For those vaccines requiring multiple doses (zoster, HPV), metrics will be compu
 
  
 ## Limitations
+
+* TODO DANI
  
 - Even though many potential confounders will be included in this study, there may be residual bias due to unmeasured or misspecified confounders, such as confounding by indication, differences in physician characteristics that may be associated with drug choice, concomitant use of other drugs started after the index date, and informative censoring at the end of the on-treatment periods. To minimize this risk, we used methods to detect residual bias through our negative and positive controls.
 - Our follow-up times are limited and variable, potentially reducing power to detect differences in effectiveness and safety.
@@ -362,10 +412,10 @@ For those vaccines requiring multiple doses (zoster, HPV), metrics will be compu
 
 # Protection of Human Subjects
 
-EUMAEUS does not involve human subjects research.
+TODO-NAME does not involve human subjects research.
 The project does, however, use de-identified human data collected during routine healthcare provision.
-All data partners executing the EUMAEUS studies within their data sources will have received institutional review board (IRB) approval or waiver for participation in accordance to their institutional governance prior to execution (see Table ADD-REF).
-EUMAEUS executes across a federated and distributed data network, where analysis code is sent to participating data partners and only aggregate summary statistics are returned, with no sharing of patient-level data between organizations.
+All data partners executing the TODO-NAME studies within their data sources will have received institutional review board (IRB) approval or waiver for participation in accordance to their institutional governance prior to execution (see Table ADD-REF).
+TODO-NAME executes across a federated and distributed data network, where analysis code is sent to participating data partners and only aggregate summary statistics are returned, with no sharing of patient-level data between organizations.
 
 ```{r irb, echo=FALSE}
 data_sources <- readr::read_delim(col_names = TRUE, delim = "&", trim_ws = TRUE, file = "
@@ -400,16 +450,16 @@ if (knitr::is_latex_output()) {
 
 # Management and Reporting of Adverse Events and Adverse Reactions
 
-EUMAEUS uses coded data that already exist in electronic databases.
+TODO-NAME uses coded data that already exist in electronic databases.
 In these types of databases, it is not possible to link (i.e., identify a potential causal association between) a particular product and medical event for any specific individual.
 Thus, the minimum criteria for reporting an adverse event (i.e., identifiable patient, identifiable reporter, a suspect product and event) are not available and adverse events are not reportable as individual adverse event reports.
 The study results will be assessed for medically important findings.
 
 # Plans for Disseminating and Communicating Study Results
 
-Open science aims to make scientific research, including its data process and software, and its dissemination, through publication and presentation, accessible to all levels of an inquiring society, amateur or professional [@Woelfle2011-ss] and is a governing principle of EUMAEUS.
+Open science aims to make scientific research, including its data process and software, and its dissemination, through publication and presentation, accessible to all levels of an inquiring society, amateur or professional [@Woelfle2011-ss] and is a governing principle of TODO-NAME
 Open science delivers reproducible, transparent and reliable evidence.
-All aspects of EUMAEUS (except private patient data) will be open and we will actively encourage other interested researchers, clinicians and patients to participate.
+All aspects of TODO-NAME (except private patient data) will be open and we will actively encourage other interested researchers, clinicians and patients to participate.
 This differs fundamentally from traditional studies that rarely open their analytic tools or share all result artifacts, and inform the community about hard-to-verify conclusions at completion.
 
 ## Transparent and re-usable research tools
@@ -417,14 +467,14 @@ This differs fundamentally from traditional studies that rarely open their analy
 We will publicly register this protocol and announce its availability for feedback from stakeholders, the OHDSI community and within clinical professional societies.
 This protocol will link to open source code for all steps to generating diagnostics, effect estimates, figures and tables.
 Such transparency is possible because we will construct our studies on top of the OHDSI toolstack of open source software tools that are community developed and rigorously tested [@Schuemie2020-wx].
-We will publicly host EUMAEUS source code at (https://github.com/ohdsi-studies/Eumaeus), allowing public contribution and review, and free re-use for anyone’s future research.
+We will publicly host TODO-NAME source code at (https://github.com/ohdsi-studies/TODO-NAME), allowing public contribution and review, and free re-use for anyone’s future research.
 
 ## Continous sharing of results
 
-EUMAEUS embodies a new approach to generating evidence from healthcare data that overcome weaknesses in the current process of answering and publishing (or not) one question at a time.
+TODO-NAME embodies a new approach to generating evidence from healthcare data that overcome weaknesses in the current process of answering and publishing (or not) one question at a time.
 Generating evidence for thousands of research and control questions using a systematic process enables us to not only evaluate that process and the coherence and consistency of the evidence, but also to avoid $p$-hacking and publication bias [@Schuemie2018-zi].
 We will store and openly communicate all of these results as they become available using a user-friendly web-based app that serves up all descriptive statistics, study diagnostics and effect estimates for each cohort comparison and outcome.
-Open access to this app will be through a general public facing EUMAEUS web-page.
+Open access to this app will be through a general public facing TODO-NAME web-page.
 
 ## Scientific meetings and publications
 
@@ -434,8 +484,8 @@ We will also prepare multiple scientific publications for clinical, informatics 
 ## General public
 
 We believe in sharing our findings that will guide clinical care with the general public.
-EUMAEUS will use social-media (Twitter) to facilitate this.
-With dedicated support from the OHDSI communications specialist, we will deliver regular press releases at key project stages, distributed via the extensive media networks of UCLA, Columbia and Yale.
+TODO-NAME will use social-media (Twitter) to facilitate this.
+With dedicated support from the OHDSI communications specialist, we will deliver regular press releases at key project stages, distributed via the extensive media networks of UCLA, Columbia and Oxford.
 
 # Lists of Tables and Figures
 
@@ -448,7 +498,7 @@ With dedicated support from the OHDSI communications specialist, we will deliver
 # Exposure Cohort Definitions
 
 ```{r h1n1-cohort, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
-baseCohortJson <- SqlRender::readSql(system.file("cohorts", "H1N1vaccination.json", package = "Eumaeus"))
+baseCohortJson <- SqlRender::readSql(system.file("cohorts", "H1N1vaccination.json", package = "VaccineEffectivenessEvaluation"))
 baseCohort <- RJSONIO::fromJSON(baseCohortJson)
 
 baseCohortJson <- RJSONIO::toJSON(baseCohort, digits = 50)
@@ -458,7 +508,7 @@ printCohortDefinitionFromNameAndJson(name = "H1N1 Vaccines",
 ```
 
 ```{r flu-cohort, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
-baseCohortJson <- SqlRender::readSql(system.file("cohorts", "FluVaccination.json", package = "Eumaeus"))
+baseCohortJson <- SqlRender::readSql(system.file("cohorts", "FluVaccination.json", package = "VaccineEffectivenessEvaluation"))
 baseCohort <- RJSONIO::fromJSON(baseCohortJson)
 
 baseCohortJson <- RJSONIO::toJSON(baseCohort, digits = 50)
@@ -468,7 +518,7 @@ printCohortDefinitionFromNameAndJson(name = "Seasonal Flu Vaccines",
 ```
 
 ```{r hpv-cohort, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
-baseCohortJson <- SqlRender::readSql(system.file("cohorts", "HpvVaccination.json", package = "Eumaeus"))
+baseCohortJson <- SqlRender::readSql(system.file("cohorts", "HpvVaccination.json", package = "VaccineEffectivenessEvaluation"))
 baseCohort <- RJSONIO::fromJSON(baseCohortJson)
 
 baseCohortJson <- RJSONIO::toJSON(baseCohort, digits = 50)
@@ -478,7 +528,7 @@ printCohortDefinitionFromNameAndJson(name = "HPV Vaccines",
 ```
 
 ```{r zoster-cohort, echo=FALSE, results="asis", warning=FALSE, message=FALSE}
-baseCohortJson <- SqlRender::readSql(system.file("cohorts", "ZosterVaccination.json", package = "Eumaeus"))
+baseCohortJson <- SqlRender::readSql(system.file("cohorts", "ZosterVaccination.json", package = "VaccineEffectivenessEvaluation"))
 baseCohort <- RJSONIO::fromJSON(baseCohortJson)
 
 baseCohortJson <- RJSONIO::toJSON(baseCohort, digits = 50)
@@ -491,7 +541,7 @@ printCohortDefinitionFromNameAndJson(name = "Zoster Vaccines",
 # Negative controls
 
 ```{r ncs, echo=FALSE}
-ncs <- readr::read_csv(system.file("settings", "NegativeControls.csv", package = "Eumaeus"), col_types = readr::cols())
+ncs <- readr::read_csv(system.file("settings", "NegativeControls.csv", package = "VaccineEffectivenessEvaluation"), col_types = readr::cols())
 colnames(ncs) <- SqlRender::camelCaseToTitleCase(colnames(ncs))
 
 tab <- kable(ncs, booktabs = TRUE, linesep = "",
