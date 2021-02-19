@@ -1,0 +1,33 @@
+Package: VaccineEffectivenessEvaluation
+Title: Evaluating Use of Methods for Vaccine Effectiveness
+Version: 0.0.1
+Date: 2021-01-12
+Author: Marc A. Suchard [aut, cre]
+Maintainer: Marc A. Suchard <msuchard@ucla.edu>
+Description: Similar to our previous research on the evaluation of causal effect estimation methods, this study aims to systematically evaluate methods for (safety) surveillance of vaccines.
+Depends:
+    DatabaseConnector,
+    survival
+Imports:
+    Cyclops,
+    CohortDiagnostics,
+    MethodEvaluation,
+    FeatureExtraction,
+    CohortMethod,
+    SelfControlledCohort,
+    SelfControlledCaseSeries,
+    EmpiricalCalibration,
+    dplyr,
+    rlang,
+    tidyr,
+    ParallelLogger,
+    SqlRender,
+    ggplot2,
+    gridExtra,
+    bit64,
+    Sequential
+Suggests:
+    testthat
+License: Apache License 2.0
+LazyData: true
+RoxygenNote: 7.1.1
