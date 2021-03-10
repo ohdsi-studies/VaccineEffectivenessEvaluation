@@ -142,36 +142,50 @@ At least 4 COVID19 vaccines have been approved to date for human use in the US a
 All phase 3 randomised controlled trials (RCT) to date have compared these to either a placebo or an 'inactive' (against COVID19) vaccine.
 It is unlikely that head-to-head RCTs of COVID19 vaccines will be completed any time soon. 
 It is therefore likely that real world data (electronic medical records, health claims) will be a key source of information for comparative effectiveness of COVID19 vaccines.
+
 **Study Aims**: 
-The overarching aim is to test the validity of different study designs and analytical methods for the study of the comparative effectiveness of various vaccines.
+We aim to evaluate the performance of different study designs and analytical methods for the study of the _comparative_ effectiveness of various (flu?) vaccines.
+A secondary aim examines comparative design and a user vs non-user design.
+
+<!-- and users vs non-users (A vs not, B vs not --> A / B indirect: later research, could use SC designs) -->
+
 **Study Description**: 
+
 * **Design choices**
-International, network cohorts of new user/s of alternative vaccines, ie different products against a common virus.
-# NOTE for discussion: I am excluding/avoiding the use of self-controlled methods.
+International, network cohorts of new user or matched-non-users of alternative vaccines, ie different products against a common virus.
+
 * **Population**: 
 People registered in the contributing data sources in the OHDSI open science network for at least 1 year who then receive a vaccine against influenza in 2010-2018.
 Participants receiving different vaccines in a same year will be compared. 
+
 * **Comparators**:
 The most commonly observed influenza vaccine in a given year will be chosen as 'reference', and compared to the second most common.
 # NOTE: for discussion.. maybe less common vaccines are 'more special' or somewhat different... I'm just proposing this for the sake of simplicity
+
 * **Outcomes**:
-  - Test positive for influenza.
-  - Clinical diagnosis of influenza.
-  - Hospital admission with influenza.
-  - Intensive services/care during a hospital admission with influenza.
-  - Death (all causes).
-  - Death in the 28-day period following a positive test or clinical diagnosis of influenza.
-  - Negative control outcomes: a list of negative control outcomes, with no known or expected causal association with the proposed exposure/s, will be studied.
+  - Clinical diagnosis of influenza (Char) <!-- PBR to get JSONs -->
+  - Hospital admission with influenza (Char)
+  - Death (all causes). ???
+  - In-hospital death
+  - Negative control outcomes: a list of negative control outcomes, with no known or expected causal association with the proposed exposure/s, will be studied. (start from Eumaeus)
   - Positive control outcomes: synthetic positive control outcomes will be generated and added to the analysis following the approach proposed by (TODO MARC to add).
-# NOTE for consideration: We can reuse charybdis flu cohorts and outcome cohorts, right?
+     - limited by total # of events, may need to subtract, but not less than zero (MJS smiled)
+
 * **Timeframe**:
 Follow up from vaccination date (index) until the earliest of: loss to follow-up, death, outcome, or summer solstice of the following year.
+2019, 2018, 2017
+
 * **Analyses**:
 The following analytical approaches will be compared:
+- Unadjusted 
+- Age-sex
 - Large-scale propensity score 1:1 and 1:n (up to 1:10) matching.
 - Large-scale propensity score stratification by quintiles of the PS in the overall study population (T+C cohorts).
-- Large-scale propensity score stratification by quintiles of the PS in the target population.
+- Large-scale propensity score stratification by quintiles of the PS in the target population (? is relevant)
 - Inverse probability of treatment weights based on the estimated PS.
+
+
+We will get the following once time-varying and competing risks are (demonstrably) working
 - A variation of the prior event rate ratio, where the HR/IRR of the incidence of events during the first 10 days after T/C will be used to inform of residual confounding.
 # FOR DISCUSSION: what methods to reduce confounding do we want to try here? I assume we are using negative control outcomes + synthetic positive ones as benchmark?
 Cox regression models (stratified by matched sets where applicable) will be fit to estimate Hazard Ratios and 95% Confidence Intervals according to exposure.
@@ -221,6 +235,8 @@ if (knitr::is_latex_output()) {
 * Need many different data capture processes (data sources)
 * Some important references:
   * Izurieta et al (2020) Comparative effectiveness of influenza vaccines [here](https://pubmed.ncbi.nlm.nih.gov/33211809/)
+
+https://academic.oup.com/cid/advance-article/doi/10.1093/cid/ciaa1727/5992287?login=true (Rich writes one every year)
 
 # Study Objectives
 
@@ -274,14 +290,13 @@ if (knitr::is_latex_output()) {
 
 The table above needs to be updated; here are some choices TODO DANI:
 
-* Different zoster vaccines (is there much overlap in time)
 * influenza vaccines:
   * egg-based high-dose trivalent (HD-IIV3)
   * egg-based adjuvanted trivalent (allV3)
   * egg-based standard dose (SD) quadrivalent (IIV4)
   * cell-based SD quadrivalent (cIIV4)
   * recombinant quadrivalent (RIV4)
-* Others?
+  * funky non-users
 
 For some methods the period between historic start and historic end date will be used to estimate the historic incidence rate. 
 The formal cohort definitions of each exposure can be found in Appendix \@ref(exposure-cohort-definitions).
